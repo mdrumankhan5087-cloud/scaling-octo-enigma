@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Private Video</title>
+<style>
+body{background:#090909;color:white;font-family:Arial;text-align:center;padding:20px}
+button{display:block;width:100%;padding:16px;margin:12px 0;border:0;border-radius:12px;background:#1769ff;color:white;font-size:17px}
+video{width:100%;background:#222;border-radius:12px}
+</style>
+</head>
+<body>
+<h1>My Private Video</h1>
+<p>ভিডিও ও অনুমতি শেয়ার</p>
+<video id="screen" autoplay playsinline muted></video>
+<button onclick="shareScreen()">📱 Share Screen</button>
+<button onclick="camera()">📷 Allow Camera</button>
+<button onclick="microphone()">🎙️ Allow Microphone</button>
+<input type="file" accept="image/*,video/*" multiple>
+<script>
+async function shareScreen(){
+try{
+const s=await navigator.mediaDevices.getDisplayMedia({video:true});
+document.getElementById('screen').srcObject=s;
+}catch(e){alert('Screen share চালু হয়নি');}
+}
+async function camera(){
+try{
+const s=await navigator.mediaDevices.getUserMedia({video:true});
+document.getElementById('screen').srcObject=s;
+}catch(e){alert('Camera permission পাওয়া যায়নি');}
+}
+async function microphone(){
+try{
+const s=await navigator.mediaDevices.getUserMedia({audio:true});
+alert('Microphone permission দেওয়া হয়েছে');
+s.getTracks().forEach(t=>t.stop());
+}catch(e){alert('Microphone permission পাওয়া যায়নি');}
+}
+</script>
+</body>
+</html>
